@@ -17,6 +17,11 @@ namespace BusinessLayer.Concrete
             userDal = EfRepository;
         }
 
+        public List<User> GetAllIncludeOthers()
+        {
+            return userDal.efRep_GetAllIncludeOthers();
+        }
+
         public User GetUserData(string username)
         {
             return userDal.genericRep_Get(l => l.Username == username);

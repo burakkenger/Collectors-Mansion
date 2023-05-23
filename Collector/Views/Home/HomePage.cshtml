@@ -1,11 +1,28 @@
-﻿@model EntityLayer.Concrete.User
-
+﻿@using EntityLayer.Concrete
+@model List<Product>
 @{
     ViewData["Title"] = "HomePage";
     Layout = "~/Views/Shared/Layout.cshtml";
+    var User = (User)ViewBag.User;
 }
+<div class="container">
+    <div class="row">
+        @foreach (var Product in Model)
+        {
+            <div class="col col-lg-4 col-md-6 col-12">
+                <div class="card mb-3">
+                    <a href="#"><img src="@Product.Images[0].FilePath" class="card-img-top" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@Product.Name</h5>
+                        <p class="card-text">@Product.Description</p>
+                        <p class="card-text"><span class="badge text-bg-primary">@Product.Category.Name</span></p>
+                        <p class="card-text"><small class="text-body-secondary">@Product.User.Username</small></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-<h1>Anasayfa</h1>
-<h1>@Model.Name</h1>
 
 

@@ -11,6 +11,16 @@ namespace BusinessLayer.Concrete
 {
     public class ProductManager : GenericManager<Product>, IProductService
     {
-        public ProductManager(IProductDal EfRepository) : base(EfRepository) { }
+        IProductDal productDal;
+
+        public ProductManager(IProductDal EfRepository) : base(EfRepository)
+        {
+            productDal = EfRepository;
+        }
+
+        public List<Product> GetIncludeOthers()
+        {
+            return productDal.efRep_GetIncludeOthers();
+        }
     }
 }

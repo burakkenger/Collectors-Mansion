@@ -9,5 +9,6 @@ namespace DataAccessLayer.Abstract
 {
     public interface IUserDal : IGenericDal<User>
     {
+        List<User> efRep_GetAllIncludeOthers();
     }
 }

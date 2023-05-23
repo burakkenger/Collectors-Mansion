@@ -3,9 +3,9 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Collector.Controllers
+namespace Collector.ViewComponents.NavUserProfile
 {
-    public class HomeController : Controller
+    public class NavUserProfile : ViewComponent
     {
         private User UserData()
         {
@@ -13,13 +13,9 @@ namespace Collector.Controllers
             return userManager.GetUserData(User.Identity.Name);
         }
 
-        ProductManager productManager = new ProductManager(new EfProductRepository());
-
-        public IActionResult HomePage()
+        public IViewComponentResult Invoke()
         {
-            var products = productManager.GetIncludeOthers();
-            ViewBag.User = UserData();
-            return View(products);
+            return View(UserData());
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model EntityLayer.Concrete.User
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="@Model.ProfileImage" class="profileAvatar" alt="Avatar">
+        <button id="navButtons">Profilim</button>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/Profile/UserProfile/">Profil Sayfası</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Çıkış Yap</a></li>
+    </ul>
+</li>
+
