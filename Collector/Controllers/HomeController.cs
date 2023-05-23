@@ -1,32 +1,22 @@
-﻿using Collector.Models;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Collector.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private User UserData()
         {
-            _logger = logger;
+            UserManager userManager = new UserManager(new EfUserRepository());
+            return userManager.GetUserData(User.Identity.Name);
         }
 
-        public IActionResult Index()
+        public IActionResult HomePage()
         {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(UserData());
         }
     }
 }

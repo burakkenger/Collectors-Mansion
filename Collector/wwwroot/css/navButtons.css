@@ -1,0 +1,37 @@
+#navButtons {
+    height: 30px;
+    width: 120;
+    position: relative;
+    font-size: 1.2em;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #a70038e1;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    color: #DEDEDE;
+    
+}
+
+#navButtons::before {
+    position: absolute;
+    content: '';
+    height: 0;
+    width: 0;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgb(253, 253, 253) 0%, rgb(253, 253, 253) 50%, #8000ffc9 50%, #8000ffc9 60%);
+    border-radius: 0 0 0.5em 0;
+    transition: 0.3s;
+    box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
+}
+
+#navButtons:hover::before {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+#navButtons:active {
+    box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
+    transform: translate(0.1em, 0.1em);
+}

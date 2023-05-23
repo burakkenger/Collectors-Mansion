@@ -16,5 +16,15 @@ namespace BusinessLayer.Concrete
         {
             userDal = EfRepository;
         }
+
+        public User GetUserData(string username)
+        {
+            return userDal.genericRep_Get(l => l.Username == username);
+        }
+
+        public User Login(User user)
+        {
+            return userDal.genericRep_Get(x => x.Username == user.Username && x.Password == user.Password);
+        }
     }
 }
