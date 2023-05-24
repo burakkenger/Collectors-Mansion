@@ -1,0 +1,152 @@
+﻿@model DtoLayer.Dtos.UserDtos.UserEditDto
+
+@{
+    ViewData["Title"] = "EditProfile";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var errorData = (int)ViewBag.PasswordError;
+}
+
+<link rel="stylesheet" href="~/css/FileInput.css">
+<link rel="stylesheet" href="~/css/profileButton.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-8 col-md-10 col-12 m-auto mt-5">
+            <div class="accordion" id="accordionExample">
+
+                @using (Html.BeginForm("EditProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Profil Fotoğrafı
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+
+                                <div class="mfiform mt-4">
+                                    <span class="mfiform-title">Profil fotoğrafı yükle</span>
+                                    <p class="mfiform-paragraph">
+                                        Sadece görseller kabul edilir
+                                    </p>
+                                    <label for="mfifile-input" class="mfidrop-container">
+                                        <span class="mfidrop-title">Dosyaları sürükle</span>
+                                        veya
+                                        <input asp-for="ProfileImage" type="file" accept="image/*" id="mfifile-input">
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Ad
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="fa-solid fa-id-card-clip"></i></span>
+                                    <input asp-for="Name" type="text" class="form-control" placeholder="Adınızı girin"
+                                        aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Soyad
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="fa-solid fa-id-card-clip"></i></span>
+                                    <input asp-for="Surname" type="text" class="form-control" placeholder="Soyadınızı girin"
+                                        aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                Adres
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-map-location-dot"></i></span>
+                                    <textarea asp-for="HomeAdress" class="form-control"
+                                        aria-label="With textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Hakkımda
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-pen-nib"></i></span>
+                                    <textarea asp-for="About" class="form-control" aria-label="With textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3 mt-4">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-key"></i></span>
+                        <input name="verifyPassword" type="text" class="form-control"
+                            placeholder="Doğrulama için parolanızı giriniz" aria-label="Username"
+                            aria-describedby="basic-addon1">
+                    </div>
+
+                    <button type="submit" role="button" class="profileButton mt-3 mb-5 w-100">Güncelle</button>
+
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                    <span asp-validation-for="HomeAdress" class="text-danger"></span>
+                    <span asp-validation-for="About" class="text-danger"></span>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        if(@errorData == 1)
+        swal("Şifre yanlış", "", "error");
+    });
+</script>

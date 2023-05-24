@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using BusinessLayer.ValidationModels;
+using EntityLayer.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.ValidationRules
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<ProductAndImageModel>
     {
         public ProductValidator()
         {
-            RuleFor(field => field.Name).NotEmpty().WithMessage("Ad kısmı boş geçilemez");
+            RuleFor(field => field.Product.Name).NotEmpty().WithMessage("Ad kısmı boş geçilemez");
+            RuleFor(field => field.Product.Description).NotEmpty().WithMessage("Açıklama kısmı boş geçilemez");
         }
     }
 }

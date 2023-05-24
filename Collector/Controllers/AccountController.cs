@@ -66,6 +66,8 @@ namespace Collector.Controllers
             user.Username = userRegister.Username;
             user.Email = userRegister.Email;
             user.Password = userRegister.Password;
+            user.HomeAdress = "Eklenmemiş";
+            user.About = "Eklenmemiş";
             
 
             RegisterValidator validator = new RegisterValidator();

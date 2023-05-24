@@ -1,4 +1,6 @@
 ﻿@using EntityLayer.Concrete
+@using BusinessLayer.ValidationModels
+
 @model ProductAndImageModel
 
 @{
@@ -22,13 +24,14 @@
                     <h2>Ürün Ekleyin</h2>
                 </div>
 
-                <div class="input-group mb-3 mt-2">
+                <div class="input-group mt-2">
                     <span class="input-group-text" id="basic-addon1">Ürün adı</span>
                     <input asp-for="Product.Name" type="text" class="form-control" placeholder="Ürün adını giriniz" aria-label="Username"
                         aria-describedby="basic-addon1">
                 </div>
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
 
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 mt-3">
                     <label class="input-group-text" for="inputGroupSelect01">Kategori</label>
                     <select asp-for="Product.CategoryID" asp-items="categoryList" class="form-select" id="inputGroupSelect01">
                         <option selected>Belirtilmemiş</option>
@@ -42,12 +45,14 @@
                     </select>
                 </div>
 
-                <div class="input-group mb-4">
+                <div class="input-group">
                     <span class="input-group-text">Ürün açıklaması</span>
                     <textarea asp-for="Product.Description" class="form-control" aria-label="With textarea"></textarea>
                 </div>
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
 
-                <div class="mfiform">
+
+                <div class="mfiform mt-4">
                     <span class="mfiform-title">Upload your file</span>
                     <p class="mfiform-paragraph">
                         File should be an image
