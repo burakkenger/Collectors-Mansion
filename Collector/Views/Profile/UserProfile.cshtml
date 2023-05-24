@@ -47,14 +47,14 @@
                 </div>
 
                 <button role="button" class="profileButton mt-4 me-2">Profili Düzenle</button>
-                <button role="button" class="profileButton mt-4">Parça Ekle</button>
+                <a href="/Profile/AddProduct/"><button role="button" class="profileButton mt-4">Parça Ekle</button></a>
 
             </div>
 
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" data-masonry='{"percentPosition": true }'>
         @for (int i = 0; i < @Model.Products.Count; i++)
         {
             <div class="col col-lg-4 col-md-6 col-12 mt-5">
@@ -71,6 +71,10 @@
     </div>
 
 
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+        async></script>
 </div>
 </div>
 

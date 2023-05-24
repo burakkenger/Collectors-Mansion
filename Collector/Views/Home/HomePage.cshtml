@@ -6,12 +6,13 @@
     var User = (User)ViewBag.User;
 }
 <div class="container">
-    <div class="row">
+    <div class="row" data-masonry='{"percentPosition": true }'>
         @foreach (var Product in Model)
         {
-            <div class="col col-lg-4 col-md-6 col-12">
+            <div class="col col-lg-4 col-md-6 col-12 mt-5">
                 <div class="card mb-3">
-                    <a href="#"><img src="@Product.Images[0].FilePath" class="card-img-top" alt=""></a>
+                    <a href="#"><img style="" src="@Product.Images[0].FilePath"
+                            class="card-img-top" alt=""></a>
                     <div class="card-body">
                         <h5 class="card-title">@Product.Name</h5>
                         <p class="card-text">@Product.Description</p>
@@ -24,5 +25,6 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
 

@@ -1,0 +1,75 @@
+﻿@using EntityLayer.Concrete
+@model ProductAndImageModel
+
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var categoryList = (List<SelectListItem>)ViewBag.CategoryList;
+    var statusList = (List<SelectListItem>)ViewBag.StatusList;
+    var userData = (User)ViewBag.UserData;
+}
+
+<link rel="stylesheet" href="~/css/FileInput.css">
+<link rel="stylesheet" href="~/css/profileButton.css">
+
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("AddProduct", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col col-lg-6 col-md-8 col-12 mt-4 m-auto">
+
+                <div class="mt-1 m-auto d-flex justify-content-center">
+                    <h2>Ürün Ekleyin</h2>
+                </div>
+
+                <div class="input-group mb-3 mt-2">
+                    <span class="input-group-text" id="basic-addon1">Ürün adı</span>
+                    <input asp-for="Product.Name" type="text" class="form-control" placeholder="Ürün adını giriniz" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Kategori</label>
+                    <select asp-for="Product.CategoryID" asp-items="categoryList" class="form-select" id="inputGroupSelect01">
+                        <option selected>Belirtilmemiş</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Durum</label>
+                    <select asp-for="Product.StatusID" asp-items="statusList" class="form-select" id="inputGroupSelect01">
+                        <option selected>Belirtilmemiş</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-4">
+                    <span class="input-group-text">Ürün açıklaması</span>
+                    <textarea asp-for="Product.Description" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+
+                <div class="mfiform">
+                    <span class="mfiform-title">Upload your file</span>
+                    <p class="mfiform-paragraph">
+                        File should be an image
+                    </p>
+                    <label for="mfifile-input" class="mfidrop-container">
+                        <span class="mfidrop-title">Dosyaları sürükle</span>
+                        veya
+                        <input asp-for="ImageUpload.ImageFiles" type="file" accept="image/*" required="" id="mfifile-input" multiple>
+                    </label>
+                </div>
+
+                <input asp-for="Product.UserID" type="text" value="@userData.ID" hidden>
+
+                <button type="submit" role="button" class="profileButton mt-4 mb-3 w-100">Ekle</button>
+
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
