@@ -1,0 +1,128 @@
+﻿@using EntityLayer.Concrete
+@using DtoLayer.Dtos.ProductDtos
+@model ProductCommentDto
+
+@{
+    ViewData["Title"] = "ProductPage";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var product = (Product)ViewBag.Product;
+}
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+<link rel="stylesheet" href="~/css/profileButton.css">
+<link rel="stylesheet" href="~/css/likeButton.css">
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-8 col-md-10 col-12 m-auto mt-5">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mt-2">@product.Name</h3>
+                </div>
+                <div class="card-body">
+
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                            @for (int i = 0; i < product.Images.Count; i++)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                            }
+                        </div>
+                        <div class="carousel-inner">
+                            @for (int i = 0; i < product.Images.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="@product.Images[i].FilePath" class="d-block w-100"
+                                            style="object-fit: contain !important; height: 600px;" alt="...">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src="@product.Images[i].FilePath" class="d-block w-100"
+                                            style="object-fit: contain !important; height: 600px;" alt="...">
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-black opacity-25 rounded" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-black opacity-25 rounded" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="card-footer text-body-secondary">
+
+                    <div class="card">
+                        <h5 class="card-header"><span class="badge text-bg-primary">@product.Category.Name</span></h5>
+                        <div class="card-body">
+                            <a href="/Profile/OtherUserProfile/@product.UserID"><h5 class="card-title"><img src="@product.User.ProfileImage" class="profileAvatar"
+                                    alt="Avatar">
+                                @product.User.Username</h5></a>
+                            <p class="card-text">@product.Description</p>
+                        </div>
+                    </div>
+
+                    <input class="input-likebtn" type="checkbox" id="favorite" name="favorite-checkbox" value="favorite-button">
+                    <label for="favorite" class="container label-likebtn mt-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-heart">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                        <div class="action-likebtn">
+                            <span class="option-1">Beğen</span>
+                            <span class="option-2">Beğenildi</span>
+                        </div>
+                    </label>
+                    <p class="ms-2 mt-2">Beğeni sayısı 0</p>
+                    
+                </div>
+            </div>
+
+            @for (int i = 0; i < product.Comments.Count; i++)
+            {
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <a href="/Profile/OtherUserProfile/@product.Comments[i].User.ID"><h6 class="card-title"><img src="@product.Comments[i].User.ProfileImage" class="profileAvatar-sml" alt="Avatar">   @product.Comments[i].User.Username</h6></a>
+                        <p class="card-text">@product.Comments[i].Content</p>
+                        <small class="text-body-secondary">@product.Comments[i].Date.ToString("dddd, dd MMMM yyyy HH:mm")</small>
+                    </div>
+                </div>
+            }
+
+
+
+            @using (Html.BeginForm("ProductPage", "Home", FormMethod.Post))
+            {
+                <div class="input-group mt-5 mb-3">
+                    <span class="input-group-text"><i class="fa-solid fa-comment-arrow-up-right fa-2xl"></i></span>
+                    <textarea asp-for="Comment" class="form-control" aria-label="With textarea"></textarea>
+                    <input asp-for="ProductID" type="text" value="@product.ID" hidden>
+                </div>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+
+                <button type="submit" role="button" class="profileButton mt-1 mb-5 w-100">Gönder</button>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+
+

@@ -19,6 +19,7 @@ namespace EntityLayer.Concrete
         public string? HomeAdress { get; set; }
         public string? About { get; set; }
         public string? ProfileImage { get; set; }
+        public int? AccountType { get; set; }
 
         public List<Product> Products { get; set; }
         public Cart? Cart { get; set; }

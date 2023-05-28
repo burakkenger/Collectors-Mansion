@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "EditProfile";
     Layout = "~/Views/Shared/Layout.cshtml";
-    var errorData = (int)ViewBag.PasswordError;
+    var errorData = ViewBag.PasswordError;
 }
 
 <link rel="stylesheet" href="~/css/FileInput.css">
@@ -123,7 +123,7 @@
 
                     <div class="input-group mb-3 mt-4">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-key"></i></span>
-                        <input name="verifyPassword" type="text" class="form-control"
+                        <input name="verifyPassword" type="password" class="form-control"
                             placeholder="Doğrulama için parolanızı giriniz" aria-label="Username"
                             aria-describedby="basic-addon1">
                     </div>

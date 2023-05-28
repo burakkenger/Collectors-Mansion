@@ -25,7 +25,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Collector House</a>
+            <a class="navbar-brand" href="#"><img src="~/Images/logo-no-background.png" alt="" style="height: 40px; width: 155px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,6 +39,11 @@
                             <button id="navButtons">AnaSayfa</button>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        @await Component.InvokeAsync("Search")
+                    </li>
+                    
 
                 </ul>
             </div>

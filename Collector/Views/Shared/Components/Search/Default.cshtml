@@ -1,0 +1,13 @@
+﻿<link rel="stylesheet" href="~/css/profileButton.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+
+@using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
+{
+    <div class="input-group" style="margin-top: 5px;">
+        <span class="input-group-text" id="basic-addon1"><button type="submit" role="button" class="profileButton"><i class="fa-solid fa-magnifying-glass"></i></button></span>
+        <input type="text" class="form-control" placeholder="Buradan arayın" name="keyword">
+    </div>
+
+}
+

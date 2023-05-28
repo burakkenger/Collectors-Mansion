@@ -77,6 +77,7 @@ namespace Collector.Controllers
             product.CategoryID = viewModel.Product.CategoryID;
             product.StatusID = viewModel.Product.StatusID;
             product.Images = imageList;
+            product.BanStatus = false;
             
 
 
@@ -183,6 +184,12 @@ namespace Collector.Controllers
             }
             
 
+        }
+
+        public IActionResult OtherUserProfile(int ID)
+        {
+            var user = userManager.GetAllIncludeOthers().Where(l => l.ID == ID).FirstOrDefault();
+            return View(user);
         }
 
 

@@ -16,7 +16,14 @@ namespace DataAccessLayer.EntityFramework
         Context context = new Context();
         public List<Product> efRep_GetIncludeOthers()
         {
-            return context.Products.Include(l => l.Images).Include(l => l.ProductLikes).Include(l => l.Status ).Include(l => l.Category).Include(l => l.User).ToList();
+            return context.Products
+                .Include(l => l.Images)
+                .Include(l => l.ProductLikes)
+                .Include(l => l.Status)
+                .Include(l => l.Category)
+                .Include(l => l.User)
+                .Include(l => l.Comments).ThenInclude(l => l.User)
+                .ToList();
         }
     }
 }

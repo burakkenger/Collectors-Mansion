@@ -5,6 +5,8 @@ using DtoLayer.Dtos.UserDtos;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -12,6 +14,7 @@ using System.Security.Claims;
 
 namespace Collector.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private User UserData()
@@ -46,7 +49,11 @@ namespace Collector.Controllers
                 return RedirectToAction("HomePage", "Home");
             }
             else
+            {
+                ModelState.AddModelError(string.Empty, "Kullanıcı bilgileriniz yanlış");
                 return View();
+            }
+                
         }
 
         [HttpGet]
@@ -87,6 +94,13 @@ namespace Collector.Controllers
                 }
                 return View();
             }
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Login", "Account");
         }
     }
 }
