@@ -20,18 +20,19 @@ namespace Collector.Controllers
 
         ProductManager productManager = new ProductManager(new EfProductRepository());
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
+        LikeManager likeManager = new LikeManager(new EfLikeRepository());
 
         public IActionResult HomePage(string keyword)
         {
-            if(!string.IsNullOrEmpty(keyword))
+            var products = productManager.GetIncludeOthers();
+
+            if (!string.IsNullOrEmpty(keyword))
             {
                 keyword = keyword.ToLower();
-                var filteredProducts = productManager.GetIncludeOthers();
-                filteredProducts = filteredProducts.Where(x => x.Name.ToLower().Contains(keyword)).ToList();
+                var filteredProducts = products.Where(x => x.Name.ToLower().Contains(keyword)).ToList();
                 ViewBag.User = UserData();
                 return View(filteredProducts);
             }
-            var products = productManager.GetIncludeOthers();
             ViewBag.User = UserData();
             return View(products);
         }
@@ -41,8 +42,17 @@ namespace Collector.Controllers
         {
             var productCommentDto = new ProductCommentDto();
             var product = productManager.GetIncludeOthers().Where(l => l.ID == ID).FirstOrDefault();
-            ViewBag.Product = product;
+            var checkLike = likeManager.Get(l => l.UserID == UserData().ID && l.ProductID == ID);
 
+            if (checkLike == null) 
+            {
+                ViewBag.LikeStatus = 0;
+            }
+            else
+                ViewBag.LikeStatus = 1;
+
+            ViewBag.User = UserData();
+            ViewBag.Product = product;
             return View(productCommentDto);
         }
 
@@ -77,13 +87,22 @@ namespace Collector.Controllers
                 return View();
             }
         }
-
-        public JsonResult postLike(int ProductID, string value)
+           
+        public JsonResult postLike(Like like)
         {
-            //newsletterManager.Insert(data);
-            var jsonResult = JsonConvert.SerializeObject(value);
+            var check = likeManager.Get(l => l.UserID == like.UserID && l.ProductID == like.ProductID);
 
-            return Json(jsonResult);
+            if (check != null)
+            {
+                likeManager.Delete(check);
+            }
+            else
+            {
+                likeManager.Insert(like);
+            }
+
+            var likeCount = likeManager.GetAll(l => l.ProductID == like.ProductID).Count().ToString();
+            return Json(likeCount);
         }
 
 

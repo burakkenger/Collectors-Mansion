@@ -25,6 +25,7 @@ namespace Collector.Controllers
         ProductManager productManager = new ProductManager(new EfProductRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         StatusManager statusManager = new StatusManager(new EfStatusRepository());
+        FollowerListManager followerListManager = new FollowerListManager(new EfFollowerListRepository());
 
         public IActionResult UserProfile()
         {
@@ -189,7 +190,51 @@ namespace Collector.Controllers
         public IActionResult OtherUserProfile(int ID)
         {
             var user = userManager.GetAllIncludeOthers().Where(l => l.ID == ID).FirstOrDefault();
+            var checkFollow = followerListManager.Get(l => l.FollowedID == ID && l.FollowerID == UserData().ID);
+            ViewBag.MainUser = UserData();
+
+            if(checkFollow == null)
+            {
+                ViewBag.FollowStatus = 0;
+            }
+            else
+            {
+                ViewBag.FollowStatus = 1;
+            }
+
             return View(user);
+        }
+
+        public JsonResult Follow(FollowerList followerList)
+        {
+            var check = followerListManager.Get(l => l.FollowedID == followerList.FollowedID && l.FollowerID == followerList.FollowerID);
+            string returnCode;
+
+            if(check == null)
+            {
+                followerListManager.Insert(followerList);
+                returnCode = "0";
+            }
+            else
+            {
+                followerListManager.Delete(check);
+                returnCode = "1";
+            }
+
+            var followerCount = followerListManager.GetAll(l => l.FollowedID == followerList.FollowedID).Count().ToString();
+            List<string> returnList = new List<string>();
+            returnList.Add(followerCount);
+            returnList.Add(returnCode);
+
+            return Json(returnList);
+        }
+
+        public IActionResult Favorites()
+        {
+            var products = productManager.GetIncludeOthers();
+            var favProducts = products.Where(l => l.ProductLikes.Exists(l => l.ID == UserData().ID)).ToList();
+
+            return View(favProducts);
         }
 
 

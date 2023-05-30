@@ -102,5 +102,6 @@ namespace Collector.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+
     }
 }

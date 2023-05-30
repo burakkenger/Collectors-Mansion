@@ -1,0 +1,19 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "[!C]*/**": true,
+        "C[!o]*/**": true,
+        "Co[!l]*/**": true,
+        "Col[!l]*/**": true,
+        "Coll[!e]*/**": true,
+        "Colle[!c]*/**": true,
+        "Collec[!t]*/**": true,
+        "Collect[!o]*/**": true,
+        "Collecto[!r]*/**": true
+    }
+}
