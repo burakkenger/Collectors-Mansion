@@ -11,6 +11,6 @@ namespace BusinessLayer.Concrete
 {
     public class CategoryManager : GenericManager<Category>, ICategoryService
     {
-        public CategoryManager(ICategoryDal EfRepository) : base(EfRepository) { }
+        public CategoryManager(ICategoryDal EfRepository) : base(EfRepository) {}
     }
 }

@@ -11,6 +11,15 @@ namespace BusinessLayer.Concrete
 {
     public class CartManager : GenericManager<Cart>, ICartService 
     {
-        public CartManager(ICartDal EfRepository) : base(EfRepository) { }
+        ICartDal cartDal;
+        public CartManager(ICartDal EfRepository) : base(EfRepository) 
+        {
+            cartDal = EfRepository;
+        }
+
+        public List<Cart> GetAllIncludeOthers()
+        {
+            return cartDal.efRep_GetAllIncludeOthers();
+        }
     }
 }

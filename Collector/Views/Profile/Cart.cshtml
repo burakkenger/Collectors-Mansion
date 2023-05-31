@@ -1,0 +1,52 @@
+﻿@using EntityLayer.Concrete
+@model Cart
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+    <div class="pb-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+                    <!-- Shopping cart table -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="p-2 px-3 text-uppercase">Ürün</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Kaldır</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (int i = 0; i < Model.Products.Count; i++)
+                                {
+                                    <tr>
+                                        <th scope="row" class="border-0">
+                                            <div class="p-2">
+                                                <img src="@Model.Products[i].Images[0].FilePath" alt="" class="img-fluid rounded shadow-sm" style="height: 70px; width: 70px; vertical-align: middle;">
+                                                <div class="ml-3 d-inline-block align-middle ms-3">
+                                                    <h5 class="mb-0"> <a style="text-decoration: none;" href="#" class="text-dark d-inline-block align-middle">@Model.Products[i].Name</a></h5><span class="text-muted font-weight-normal font-italic d-block">@Model.Products[i].Category.Name</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="border-0 align-middle"><a href="/Profile/DeleteProductFromCart/@Model.Products[i].ID" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

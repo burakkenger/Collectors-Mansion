@@ -16,12 +16,13 @@ namespace DataAccessLayer.EntityFramework
         Context context = new Context();
         public List<User> efRep_GetAllIncludeOthers()
         {
-            return context.Users.Include(l => l.Followings)
-                                .Include(l => l.Followers)
-                                .Include(l => l.FavProducts)
-                                .Include(l => l.Products).ThenInclude(l => l.Category)
-                                .Include(l => l.Products).ThenInclude(l => l.Images)
-                                .ToList();
+            return context.Users
+                .Include(l => l.Followings).ThenInclude(l => l.Follower)
+                .Include(l => l.Followers).ThenInclude(l => l.Followed)
+                .Include(l => l.FavProducts)
+                .Include(l => l.Products).ThenInclude(l => l.Category)
+                .Include(l => l.Products).ThenInclude(l => l.Images)
+                .ToList();
         }
     }
 }

@@ -20,8 +20,9 @@
         <div class="col col-lg-8 col-md-10 col-12 m-auto mt-5">
 
             <div class="card">
-                <div class="card-header">
-                    <h3 class="mt-2">@product.Name</h3>
+                <div class="card-header d-flex mb-3">
+                    <div class="p-2"><h3 class="mt-2">@product.Name</h3></div>
+                    <div class="ms-auto p-2"><button type="submit" id="addCartBtn" role="button" class="profileButton mt-2"><i class="fa-duotone fa-cart-circle-plus"></i></button></div>
                 </div>
                 <div class="card-body">
 
@@ -70,7 +71,7 @@
                     <div class="card">
                         <h5 class="card-header"><span class="badge text-bg-primary">@product.Category.Name</span></h5>
                         <div class="card-body">
-                            <a href="/Profile/OtherUserProfile/@product.UserID">
+                            <a style="text-decoration: none;" href="/Profile/OtherUserProfile/@product.UserID">
                                 <h5 class="card-title">
                                     <img src="@product.User.ProfileImage" class="profileAvatar"
                                          alt="Avatar">
@@ -133,6 +134,7 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -162,6 +164,25 @@
                     }
                 });
         });
+
+        $("#addCartBtn").click(function () {
+            let cartViewModel = {
+                    ProductID: @product.ID
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Profile/AddProductToCart/",
+                    dataType: "json",
+                    data: cartViewModel,
+                    success: function (x) {
+                        //let result = jQuery.parseJSON(x);
+                        swal({ text: `${x}` });
+                    }
+                });
+        });
+
+
     });
 </script>
 

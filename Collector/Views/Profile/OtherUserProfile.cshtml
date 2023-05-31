@@ -18,6 +18,14 @@
         height: 220px;
         border-radius: 50%;
     }
+
+    #h-follower {
+        cursor: pointer;
+    }
+
+    #h-following {
+        cursor: pointer;
+    }
 </style>
 
 <div class="container">
@@ -43,10 +51,60 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="d-inline">Takipçi <span id="followerCount" class="badge bg-secondary">@Model.Followings.Count</span></h5>
-                    <h5 class="d-inline">Takip Edilen <span class="badge bg-secondary">@Model.Followers.Count</span>
+                    <h5 id="h-follower" class="d-inline">Takipçi <span id="followerCount"
+                            class="badge bg-secondary">@Model.Followings.Count</span></h5>
+                    <h5 id="h-following" class="d-inline">Takip Edilen <span id="followingCount"
+                            class="badge bg-secondary">@Model.Followers.Count</span>
                     </h5>
                 </div>
+
+                <!-- Modal Follower -->
+                <div class="modal fade" id="followerModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Takipçiler</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                @for (int i = 0; i < @Model.Followings.Count; i++)
+                                {
+                                    <p><img src="@Model.Followings[i].Follower.ProfileImage" class="profileAvatar-sml"
+                                            alt="Avatar"> @Model.Followings[i].Follower.Username</p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal Following -->
+                <div class="modal fade" id="followingModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel2">Takip Edilen</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                @for (int i = 0; i < @Model.Followers.Count; i++)
+                                {
+                                    <p><img src="@Model.Followers[i].Followed.ProfileImage" class="profileAvatar-sml"
+                                            alt="Avatar"> @Model.Followers[i].Followed.Username</p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <button role="button" id="followButton" class="profileButton mt-4 me-2">Takip Et</button>
 
@@ -74,6 +132,7 @@
 
 
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
@@ -102,13 +161,26 @@
                     data: followerList,
                     success: function (returnList) {
                         $("#followerCount").text(returnList[0]);
-                        if(returnList[1] == 0)
-                        $("#followButton").html("Takipten çık");
+                        if (returnList[1] == 0)
+                            $("#followButton").html("Takipten çık");
                         else
-                        $("#followButton").html("Takip Et");
+                            $("#followButton").html("Takip Et");
                     }
                 });
             });
+
+            const myModal = new bootstrap.Modal('#followerModal');
+            const myModal2 = new bootstrap.Modal('#followingModal');
+
+            $("#h-follower").click(function () {
+                myModal.show();
+            });
+
+            $("#h-following").click(function () {
+                myModal2.show();
+            });
+
+
         });
     </script>
 </div>

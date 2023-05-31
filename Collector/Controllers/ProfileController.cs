@@ -26,6 +26,8 @@ namespace Collector.Controllers
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         StatusManager statusManager = new StatusManager(new EfStatusRepository());
         FollowerListManager followerListManager = new FollowerListManager(new EfFollowerListRepository());
+        CartManager cartManager = new CartManager(new EfCartRepository());
+        CartListManager cartListManager = new CartListManager(new EfCartListRepository());
 
         public IActionResult UserProfile()
         {
@@ -189,6 +191,10 @@ namespace Collector.Controllers
 
         public IActionResult OtherUserProfile(int ID)
         {
+            if(ID == UserData().ID)
+            {
+                return RedirectToAction("UserProfile", "Profile");
+            }
             var user = userManager.GetAllIncludeOthers().Where(l => l.ID == ID).FirstOrDefault();
             var checkFollow = followerListManager.Get(l => l.FollowedID == ID && l.FollowerID == UserData().ID);
             ViewBag.MainUser = UserData();
@@ -235,6 +241,42 @@ namespace Collector.Controllers
             var favProducts = products.Where(l => l.ProductLikes.Exists(l => l.ID == UserData().ID)).ToList();
 
             return View(favProducts);
+        }
+
+        public IActionResult Cart()
+        {
+            var values = cartManager.GetAllIncludeOthers().Where(l => l.UserID == UserData().ID).FirstOrDefault();
+            return View(values);
+        }
+
+        public IActionResult DeleteProductFromCart(int ID)
+        {
+            var cart = cartManager.Get(l => l.UserID == UserData().ID);
+            var cartProduct = cartListManager.Get(l => l.ProductID == ID && l.CartID == cart.ID);
+            cartListManager.Delete(cartProduct);
+            return RedirectToAction("Cart", "Profile");
+        }
+
+        public JsonResult AddProductToCart(CartViewModel cartViewModel)
+        {
+            string returnString;
+            var cart = cartManager.Get(l => l.UserID == UserData().ID);
+            var check = cartListManager.Get(l => l.ProductID == cartViewModel.ProductID && l.CartID == cart.ID);
+            CartList cartList = new CartList();
+            cartList.CartID = cart.ID;
+            cartList.ProductID = cartViewModel.ProductID;
+
+            if (check != null)
+            {
+                returnString = "Ürün zaten sepetinizde";
+            }
+            else 
+            {
+                cartListManager.Insert(cartList);
+                returnString = "Ürün sepete eklendi!";
+            }
+                
+            return Json(returnString);
         }
 
 

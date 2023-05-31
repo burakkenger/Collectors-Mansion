@@ -9,5 +9,6 @@ namespace DataAccessLayer.Abstract
 {
     public interface ICartDal : IGenericDal<Cart>
     {
+        List<Cart> efRep_GetAllIncludeOthers();
     }
 }
