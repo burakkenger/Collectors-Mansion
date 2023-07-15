@@ -33,6 +33,23 @@
  <br>
  <h3>Mesajlaşma ve iletişim</h3>
  <img src="Collector/wwwroot/documentation/İş akış diyagramları png/Mesaj yollama.png" alt="">
+ <br>
+
+ <h1>Varlık İlişki (ER) Diyagramı</h1>
+ <img src="Collector/wwwroot/documentation/ER Diyagramı.png" alt="">
+ <br>
+
+ <h1>Veri Akış Diyagramı</h1>
+ <img src="Collector/wwwroot/documentation/veri akış diyagram.png" alt="">
+ <br>
+
+ <h1>Girdi İşlem Ve Çıktıların Tasarlanması (IPO)</h1>
+ <img src="Collector/wwwroot/documentation/Genel IPO.png" alt="">
+ <br>
+
+ 
+ 
+ 
   
   
  
