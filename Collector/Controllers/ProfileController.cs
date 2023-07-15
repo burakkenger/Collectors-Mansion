@@ -260,6 +260,16 @@ namespace Collector.Controllers
         public JsonResult AddProductToCart(CartViewModel cartViewModel)
         {
             string returnString;
+            var currentUser = userManager.GetAllIncludeOthers().Where(l => l.ID == UserData().ID).FirstOrDefault();
+            var userProductCheck = currentUser.Products.Where(l => l.ID == cartViewModel.ProductID).FirstOrDefault();
+
+            if (userProductCheck != null) 
+            {
+                returnString = "Kendi ürününüzü sepete ekleyemezsiniz";
+                return Json(returnString);
+            }
+
+            
             var cart = cartManager.Get(l => l.UserID == UserData().ID);
             var check = cartListManager.Get(l => l.ProductID == cartViewModel.ProductID && l.CartID == cart.ID);
             CartList cartList = new CartList();

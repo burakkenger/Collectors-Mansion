@@ -75,7 +75,9 @@ namespace Collector.Controllers
             user.Password = userRegister.Password;
             user.HomeAdress = "Eklenmemiş";
             user.About = "Eklenmemiş";
-            
+            user.ProfileImage = "/Images/ProfileImages/defaultProfileImage.png";
+
+
 
             RegisterValidator validator = new RegisterValidator();
             ValidationResult result = validator.Validate(userRegister);

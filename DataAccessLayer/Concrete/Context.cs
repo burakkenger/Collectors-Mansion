@@ -15,7 +15,7 @@ namespace DataAccessLayer.Concrete
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=Collector;Trusted_Connection=True;Integrated Security=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlite(@"Data Source=./wwwroot/app_data/database/database.db");
         }
 
         public DbSet<User> Users { get; set; }

@@ -74,7 +74,7 @@
                             <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
                             </path>
                         </svg>
-                        @Html.TextBoxFor(x => x.Password, new { @class = "inputFieldLogin", placeholder = "Şifre" })
+                        @Html.TextBoxFor(x => x.Password, new { @class = "inputFieldLogin", placeholder = "Şifre", @type = "password" })
                     </div>
                     @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger inputFieldLoginAlert" })
 
@@ -84,7 +84,7 @@
                             <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
                             </path>
                         </svg>
-                        @Html.TextBoxFor(x => x.ConfPassword, new { @class = "inputFieldLogin", placeholder = "Şifreyi Doğrulayın" })
+                        @Html.TextBoxFor(x => x.ConfPassword, new { @class = "inputFieldLogin", placeholder = "Şifreyi Doğrulayın", @type = "password" })
                     </div>
 
                     <button id="buttonLogin" type="submit">Kayıt Ol</button>
