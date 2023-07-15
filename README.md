@@ -1,7 +1,9 @@
 # Collectors-Mansion
  <h4>Social media and market platform for collectors</h4>
  <h4>Koleksiyoncular için sosyal medya ve satış platformu</h4>
-  <h4>Canlı proje linki : https://collectorsmansion.azurewebsites.net</h4>
+ <h4>Canlı proje linki : https://collectorsmansion.azurewebsites.net</h4> <br>
+ <p>Projeye ekleme yapmaya devam ettiğimden dosyalarda bazı özellikler eksik gözükebilir</p>
+ <p>Kullanıcılar arasında özel mesaj henüz eklenmedi</p>
  <br>
  <h1>Veri Sözlüğü</h1>
  <div style="display: grid; justify-content: start;">
@@ -88,6 +90,9 @@
  2.4.2 Yasakla : Yöneticinin ürünleri yasaklayarak listeden kaldırdığı kısım <br>
 </p>
 <br>
+<h1>Veri Tabanı Tablolarının Tasarımı</h1>
+<img src="Collector/wwwroot/documentation/veritabanı diyagramı.png" alt="">
+
 
  
  
