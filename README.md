@@ -2,6 +2,8 @@
  <h4>Social media and market platform for collectors</h4>
  <h4>Koleksiyoncular için sosyal medya ve satış platformu</h4>
  <h4>Canlı proje linki : https://collectorsmansion.azurewebsites.net</h4> <br>
+ <h4>Demo Hesap : Kullanıcı Adı: demo</h4>
+ <h4>Şifre: demo248</h4>
  <p>Projeye ekleme yapmaya devam ettiğimden dosyalarda bazı özellikler eksik gözükebilir</p>
  <p>Kullanıcılar arasında özel mesaj henüz eklenmedi</p>
  <br>
