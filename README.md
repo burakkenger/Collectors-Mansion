@@ -1,6 +1,7 @@
 # Collectors-Mansion
  <h4>Social media and market platform for collectors</h4>
  <h4>Koleksiyoncular için sosyal medya ve satış platformu</h4>
+ <h4>ASP.NET Core 7.0 kullanılarak geliştirilmiş bir web projesi</h4>
  <h4>Canlı proje linki : https://collectorsmansion.azurewebsites.net</h4>
  <h4>Demo Hesap : Kullanıcı Adı: demo, Şifre: demo248</h4>
  <p>Projeye ekleme yapmaya devam ettiğimden dosyalarda bazı özellikler eksik gözükebilir</p>
