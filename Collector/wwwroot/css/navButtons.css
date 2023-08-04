@@ -1,4 +1,4 @@
-#navButtons {
+.navButtons {
     height: 30px;
     width: 120;
     position: relative;
@@ -13,7 +13,7 @@
     
 }
 
-#navButtons::before {
+.navButtons::before {
     position: absolute;
     content: '';
     height: 0;
@@ -26,12 +26,12 @@
     box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
 }
 
-#navButtons:hover::before {
+.navButtons:hover::before {
     width: 1.2em;
     height: 1.2em;
 }
 
-#navButtons:active {
+.navButtons:active {
     box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
     transform: translate(0.1em, 0.1em);
 }

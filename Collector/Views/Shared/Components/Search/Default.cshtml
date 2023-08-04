@@ -1,12 +1,14 @@
 ﻿<link rel="stylesheet" href="~/css/profileButton.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital@1&display=swap" rel="stylesheet">
 
 @using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
 {
-    <div class="input-group" style="margin-top: 3px;">
-        <span class="input-group-text" id="basic-addon1"><button type="submit" role="button" class="profileButton" style="height: 30px;"><i class="fa-solid fa-magnifying-glass"></i></button></span>
-        <input type="text" class="form-control" placeholder="Buradan arayın" name="keyword">
+    <div class="input-group" style="margin-top: 7px; height: 32px;">
+        <span class="input-group-text" id="basic-addon1" style="height: 32px; padding: 0px;"><button type="submit" role="button" class="profileButton" style="height: 30px; font-family: 'Mulish', sans-serif;">Ürün Ara<i style="margin-left: 7px;" class="fa-solid fa-magnifying-glass"></i></button></span>
+        <input style="height: 32px;" type="text" class="form-control" placeholder="Buradan arayın" name="keyword">
     </div>
 }
 

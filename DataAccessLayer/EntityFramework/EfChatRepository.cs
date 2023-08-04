@@ -33,6 +33,7 @@ namespace DataAccessLayer.EntityFramework
                 var user = data.Users.FirstOrDefault(Usr => Usr.ID != ID);
                 var chat = new SortedChatsDto();
                 chat.ID = data.ID;
+                chat.UserID = user.ID;
                 chat.Username = user.Username;
                 chat.ProfileImage = user.ProfileImage;
 

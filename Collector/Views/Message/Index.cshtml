@@ -105,8 +105,7 @@
                         </div>
                         @foreach (var chat in chatData)
                         {
-                            <a href="#" class="list-group-item list-group-item-action border-0">
-                                <div class="badge bg-success float-right">5</div>
+                            <a href="/Message/Index/@chat.UserID" class="list-group-item list-group-item-action border-0">
                                 <div class="d-flex align-items-start">
                                     <img src="@chat.ProfileImage" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
                                     <div class="flex-grow-1 ml-3">
@@ -272,8 +271,7 @@
 
                 chatJson.forEach(chat => {
                     ChatHTML +=`
-                    <a href="#" class="list-group-item list-group-item-action border-0">
-                        <div class="badge bg-success float-right">5</div>
+                    <a href="/Message/Index/${chat.UserID}" class="list-group-item list-group-item-action border-0">
                         <div class="d-flex align-items-start">
                             <img src="${chat.ProfileImage}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
                             <div class="flex-grow-1 ml-3">
@@ -334,8 +332,7 @@
 
                         JsonObj.SortedChat.forEach(chat => {
                             ChatHTML +=`
-                            <a href="#" class="list-group-item list-group-item-action border-0">
-                                <div class="badge bg-success float-right">5</div>
+                            <a href="/Message/Index/${chat.UserID}" class="list-group-item list-group-item-action border-0">
                                 <div class="d-flex align-items-start">
                                     <img src="${chat.ProfileImage}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
                                     <div class="flex-grow-1 ml-3">

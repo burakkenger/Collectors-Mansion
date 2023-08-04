@@ -12,9 +12,9 @@ namespace Collector.Controllers
 {
     public class HomeController : Controller
     {
+        UserManager userManager = new UserManager(new EfUserRepository());
         private User UserData()
         {
-            UserManager userManager = new UserManager(new EfUserRepository());
             return userManager.GetUserData(User.Identity.Name);
         }
 
@@ -105,7 +105,19 @@ namespace Collector.Controllers
             return Json(likeCount);
         }
 
+        public IActionResult FindUser(string keyword)
+        {
+            var userList = userManager.GetAll(Usr => Usr.ID != UserData().ID);
 
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var filteredUsers = userList.Where(Usr => Usr.Username.ToLower().Contains(keyword.ToLower())).ToList();
+
+                return View(filteredUsers);
+            }
+
+            return View(userList); 
+        }
 
     }
 }
