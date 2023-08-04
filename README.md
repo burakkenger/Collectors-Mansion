@@ -5,7 +5,7 @@
  <h4>Canlı proje linki : https://collectorsmansion.azurewebsites.net</h4>
  <h4>Demo Hesap : Kullanıcı Adı: demo, Şifre: demo248</h4>
  <p>Projeye ekleme yapmaya devam ettiğimden dosyalarda bazı özellikler eksik gözükebilir</p>
- <p>Kullanıcılar arasında özel mesaj henüz eklenmedi</p>
+ 
  <br>
  <h1>Veri Sözlüğü</h1>
  <div style="display: grid; justify-content: start;">
