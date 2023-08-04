@@ -1,7 +1,9 @@
+using Collector.Hubs;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,18 @@ builder.Services.AddMvc(Config =>
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
     Config.Filters.Add(new AuthorizeFilter(policy));
 }); // Proje genelinde oturum açma gerekliliði kýlan kod
+
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+}));
+
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Account/Login"; });
 
@@ -30,13 +44,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseSession(); // Oturum açma için gerekli configler
 app.UseAuthentication(); // authentication özelliðini kullanmak için ekledik
-
 app.UseRouting();
-
 app.UseAuthorization();
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapControllerRoute(
     name: "default",

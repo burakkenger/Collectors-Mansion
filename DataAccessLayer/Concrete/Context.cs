@@ -29,6 +29,9 @@ namespace DataAccessLayer.Concrete
         public DbSet<FollowerList> FollowerLists { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatList> ChatLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +66,17 @@ namespace DataAccessLayer.Concrete
             modelBuilder.Entity<Product>().HasOne(l => l.Collection).WithMany(l => l.Products).HasForeignKey(l => l.CollectionID).OnDelete(DeleteBehavior.ClientSetNull); // Koleskiyon ürün ilişkisi
             modelBuilder.Entity<Image>().HasOne(l => l.Product).WithMany(l => l.Images).HasForeignKey(l => l.ProductID).OnDelete(DeleteBehavior.ClientSetNull); // görsel ürün ilişkisi
 
+            modelBuilder.Entity<User>()
+                .HasMany(l => l.Chats)
+                .WithMany(l => l.Users)
+                .UsingEntity<ChatList>(
+                    l => l.HasOne<Chat>().WithMany().HasForeignKey(l => l.ChatID).OnDelete(DeleteBehavior.ClientSetNull),
+                    l => l.HasOne<User>().WithMany().HasForeignKey(l => l.UserID).OnDelete(DeleteBehavior.ClientSetNull));
+
+            modelBuilder.Entity<Message>().HasOne(l => l.Chat).WithMany(l => l.Messages).HasForeignKey(l => l.ChatID).OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message>().HasOne(l => l.Sender).WithMany(l => l.SentMessages).HasForeignKey(l => l.SenderID).OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Message>().HasOne(l => l.Receiver).WithMany(l => l.ReceivingMessages).HasForeignKey(l => l.ReceiverID).OnDelete(DeleteBehavior.ClientSetNull);
 
         }
     }

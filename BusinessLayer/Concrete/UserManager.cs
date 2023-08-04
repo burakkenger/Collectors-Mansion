@@ -22,6 +22,11 @@ namespace BusinessLayer.Concrete
             return userDal.efRep_GetAllIncludeOthers();
         }
 
+        public User GetIncludeChats(int ID)
+        {
+            return userDal.efRep_GetIncludeChats(ID);
+        }
+
         public User GetUserData(string username)
         {
             return userDal.genericRep_Get(l => l.Username == username);

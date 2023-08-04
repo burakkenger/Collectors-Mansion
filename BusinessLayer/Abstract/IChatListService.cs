@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IUserService : IGenericService<User>
+    public interface IChatListService : IGenericService<ChatList>
     {
-        List<User> GetAllIncludeOthers();
-        User GetIncludeChats(int ID);
     }
 }

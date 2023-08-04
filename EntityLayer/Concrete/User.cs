@@ -30,5 +30,10 @@ namespace EntityLayer.Concrete
 
         public List<FollowerList> Followers { get; set; }
         public List<FollowerList> Followings { get; set; }
+
+        public List<Chat> Chats { get; set; }
+
+        public List<Message> SentMessages { get; set; }
+        public List<Message> ReceivingMessages { get; set; }
     }
 }

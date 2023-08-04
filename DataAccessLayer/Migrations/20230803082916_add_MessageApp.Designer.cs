@@ -3,6 +3,7 @@ using System;
 using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230803082916_add_MessageApp")]
+    partial class add_MessageApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
@@ -31,7 +34,7 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.CartList", b =>
@@ -46,7 +49,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("CartLists", (string)null);
+                    b.ToTable("CartLists");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
@@ -61,7 +64,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Chat", b =>
@@ -72,7 +75,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Chats", (string)null);
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.ChatList", b =>
@@ -87,7 +90,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("ChatLists", (string)null);
+                    b.ToTable("ChatLists");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Collection", b =>
@@ -102,7 +105,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Comment", b =>
@@ -130,7 +133,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.FollowerList", b =>
@@ -151,7 +154,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("FollowerID");
 
-                    b.ToTable("FollowerLists", (string)null);
+                    b.ToTable("FollowerLists");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Image", b =>
@@ -171,7 +174,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Like", b =>
@@ -186,7 +189,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Message", b =>
@@ -219,7 +222,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("SenderID");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Product", b =>
@@ -261,7 +264,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Status", b =>
@@ -276,7 +279,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Statuses", (string)null);
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.User", b =>
@@ -319,7 +322,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Cart", b =>

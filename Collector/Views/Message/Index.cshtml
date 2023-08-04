@@ -1,0 +1,369 @@
+﻿@using EntityLayer.Concrete
+@using DtoLayer.Dtos.ChatDtos
+@model Chat
+
+@{
+    Layout = null;
+    var chatData = (List<SortedChatsDto>)ViewBag.Chats;
+    var AuthenticatedUser = (User)ViewBag.AuthenticatedUser;
+    int RecID = (int)ViewBag.ReceiverID;
+    string uName;
+    string pImage;
+    if (Model.Users[0].ID != AuthenticatedUser.ID)
+    {
+        uName = Model.Users[0].Username;
+        pImage = Model.Users[0].ProfileImage;
+    }
+    else
+    {
+        uName = Model.Users[1].Username;
+        pImage = Model.Users[1].ProfileImage;
+    }
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+
+    <title>white chat - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/profileButton.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+    <style type="text/css">
+        body {
+            margin-top: 20px;
+        }
+
+        .chat-online {
+            color: #34ce57
+        }
+
+        .chat-offline {
+            color: #e4606d
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            max-height: 800px;
+            overflow-y: scroll
+        }
+
+        .chat-message-left,
+        .chat-message-right {
+            display: flex;
+            flex-shrink: 0
+        }
+
+        .chat-message-left {
+            margin-right: auto
+        }
+
+        .chat-message-right {
+            flex-direction: row-reverse;
+            margin-left: auto
+        }
+
+        .py-3 {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        .px-4 {
+            padding-right: 1.5rem !important;
+            padding-left: 1.5rem !important;
+        }
+
+        .flex-grow-0 {
+            flex-grow: 0 !important;
+        }
+
+        .border-top {
+            border-top: 1px solid #dee2e6 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="content">
+        <div class="container p-0">
+            <a href="/Home/HomePage/"><button role="button" class="profileButton mt-4 me-2" style="margin-bottom: 15px;"><i style="margin-right: 7px;" class="fa-solid fa-square-left"></i> Geri Dön</button></a>
+            <div class="card">
+                <div class="row g-0">
+                    <div id="user-chat-list" class="col-12 col-lg-5 col-xl-3 border-right">
+                        <div class="px-4 d-none d-md-block">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <input type="text" class="form-control my-3" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (var chat in chatData)
+                        {
+                            <a href="#" class="list-group-item list-group-item-action border-0">
+                                <div class="badge bg-success float-right">5</div>
+                                <div class="d-flex align-items-start">
+                                    <img src="@chat.ProfileImage" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                                    <div class="flex-grow-1 ml-3">
+                                        @chat.Username
+                                        <div class="small">
+                                            @chat.Message
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        <hr class="d-block d-lg-none mt-1 mb-0">
+                    </div>
+                    <div class="col-12 col-lg-7 col-xl-9">
+                        <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                            <div class="d-flex align-items-center py-1">
+                                <div class="position-relative">
+                                    @if (Model.Users[0].ID != AuthenticatedUser.ID)
+                                    {
+                                        <img src="@Model.Users[0].ProfileImage" class="rounded-circle mr-1"
+                                            alt="Sharon Lessman" width="40" height="40">
+                                    }
+                                    else
+                                    {
+                                        <img src="@Model.Users[1].ProfileImage" class="rounded-circle mr-1"
+                                            alt="Sharon Lessman" width="40" height="40">
+                                    }
+                                </div>
+                                <div class="flex-grow-1 pl-3">
+                                    @if (Model.Users[0].ID != AuthenticatedUser.ID)
+                                    {
+                                        <strong>@Model.Users[0].Username</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>@Model.Users[1].Username</strong>
+                                    }
+                                    <div class="text-muted small"><em></em></div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-light border btn-lg px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-more-horizontal feather-lg">
+                                            <circle cx="12" cy="12" r="1"></circle>
+                                            <circle cx="19" cy="12" r="1"></circle>
+                                            <circle cx="5" cy="12" r="1"></circle>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative">
+                            <div id="chat-messagesID" class="chat-messages p-4">
+                                @if (Model.Messages != null)
+                                {
+                                    @foreach (var message in Model.Messages)
+                                    {
+                                        if (message.SenderID == AuthenticatedUser.ID)
+                                        {
+                                            <div class="chat-message-right pb-4">
+                                                <div>
+                                                    <img src="@message.Sender.ProfileImage" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">Ben</div>
+                                                    @message.Content
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="@message.Sender.ProfileImage" class="rounded-circle mr-1"
+                                                        alt="Sharon Lessman" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:36 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">@message.Sender.Username</div>
+                                                    @message.Content
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-0 py-3 px-4 border-top">
+                            <div class="input-group">
+                                <input id="message-content" type="text" class="form-control"
+                                    placeholder="Type your message">
+                                <button id="send-message" class="btn btn-primary" type="submit">Gönder</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.log("SignalR Connected")
+                }
+                catch (err) {
+                    console.error(err);
+                    setTimeout(start, 5000);
+                }
+            }
+
+            connection.onclose(async () => {
+                await start();
+            });
+
+            start();
+
+            connection.on("ReceiveMessage", (userID, message, stringObj) => {
+                
+                if(parseInt(userID) == @RecID){
+
+                    let returnMsg = $("#chat-messagesID").html();
+
+                    returnMsg +=`
+                    <div class="chat-message-left pb-4">
+                        <div>
+                            <img src="@pImage" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                            <div class="text-muted small text-nowrap mt-2">2:36 am</div>
+                        </div>
+                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                            <div class="font-weight-bold mb-1">@uName</div>
+                            ${message}
+                        </div>
+                    </div>`
+
+                    $("#chat-messagesID").html(returnMsg);
+                }
+                
+                var chatJson = JSON.parse(stringObj);
+                console.log(userID +" "+ message);
+
+                let ChatHTML =`
+                <div class="px-4 d-none d-md-block">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <input type="text" class="form-control my-3" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>`;
+
+                chatJson.forEach(chat => {
+                    ChatHTML +=`
+                    <a href="#" class="list-group-item list-group-item-action border-0">
+                        <div class="badge bg-success float-right">5</div>
+                        <div class="d-flex align-items-start">
+                            <img src="${chat.ProfileImage}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                            <div class="flex-grow-1 ml-3">
+                                ${chat.Username}
+                                <div class="small">
+                                    ${chat.Message}
+                                </div>
+                            </div>
+                        </div>
+                    </a>`;
+                });
+
+                ChatHTML +=`<hr class="d-block d-lg-none mt-1 mb-0">`;
+
+                $("#user-chat-list").html(ChatHTML);
+                
+            });
+            
+            $("#send-message").click(function () {
+
+                let message = {
+                    ReceiverID: @RecID,
+                    Content: $("#message-content").val(),
+                    Date: null
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Message/SendMessage/",
+                    dataType: "json",
+                    data: message,
+                    success: function (x) {
+                        let JsonObj = JSON.parse(x);
+                        let returnMsg = $("#chat-messagesID").html();
+
+                        returnMsg +=`
+                        <div class="chat-message-right pb-4">
+                            <div>
+                                <img src="@AuthenticatedUser.ProfileImage" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                            </div>
+                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                <div class="font-weight-bold mb-1">Ben</div>
+                                ${JsonObj.Message}
+                            </div>
+                        </div>`;
+
+                        $("#chat-messagesID").html(returnMsg);
+
+                        let ChatHTML =`
+                        <div class="px-4 d-none d-md-block">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <input type="text" class="form-control my-3" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>`;
+
+                        JsonObj.SortedChat.forEach(chat => {
+                            ChatHTML +=`
+                            <a href="#" class="list-group-item list-group-item-action border-0">
+                                <div class="badge bg-success float-right">5</div>
+                                <div class="d-flex align-items-start">
+                                    <img src="${chat.ProfileImage}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                                    <div class="flex-grow-1 ml-3">
+                                        ${chat.Username}
+                                        <div class="small">
+                                            ${chat.Message}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>`;
+                        });
+
+                        ChatHTML +=`<hr class="d-block d-lg-none mt-1 mb-0">`;
+
+                        $("#user-chat-list").html(ChatHTML);
+
+                        try {
+                            let ReceiverID = @RecID;
+                            ReceiverID = ReceiverID.toString();
+                            connection.invoke("SendMessage", ReceiverID, $("#message-content").val());
+                        }
+                        catch (err) {
+                            console.error(err);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

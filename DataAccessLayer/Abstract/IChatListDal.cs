@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface IUserDal : IGenericDal<User>
+    public interface IChatListDal : IGenericDal<ChatList>
     {
-        List<User> efRep_GetAllIncludeOthers();
-        User efRep_GetIncludeChats(int ID);
     }
 }

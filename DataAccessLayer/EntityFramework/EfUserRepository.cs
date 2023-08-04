@@ -22,7 +22,19 @@ namespace DataAccessLayer.EntityFramework
                 .Include(l => l.FavProducts)
                 .Include(l => l.Products).ThenInclude(l => l.Category)
                 .Include(l => l.Products).ThenInclude(l => l.Images)
+                .Include(l => l.Chats)
+                .Include(l => l.SentMessages)
+                .Include(l => l.ReceivingMessages)
                 .ToList();
+        }
+
+
+
+        public User efRep_GetIncludeChats(int ID)
+        {
+            return context.Users
+                .Include(Usr => Usr.Chats).ThenInclude(Cht => Cht.Messages)
+                .FirstOrDefault(Usr => Usr.ID == ID);
         }
     }
 }
