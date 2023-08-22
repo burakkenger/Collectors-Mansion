@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DtoLayer.Dtos.ChatDtos
 {
-    public class AjaxDto
+    public class SignalRMsgDto
     {
-        public List<SortedChatsDto>? SortedChat { get; set; }
         public string? Message { get; set; }
         public string? Date { get; set; }
+
     }
 }

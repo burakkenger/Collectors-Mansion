@@ -1,10 +1,11 @@
 ﻿@using EntityLayer.Concrete
 @model List<Product>
 @{
-    ViewData["Title"] = "HomePage";
+    ViewData["Title"] = "Ana Sayfa";
     Layout = "~/Views/Shared/Layout.cshtml";
     var User = (User)ViewBag.User;
 }
+<title>Ana Sayfa</title>
 <div class="container">
     <div class="row" data-masonry='{"percentPosition": true }'>
         @foreach (var Product in Model)

@@ -22,9 +22,6 @@ namespace DataAccessLayer.EntityFramework
                 .Include(l => l.FavProducts)
                 .Include(l => l.Products).ThenInclude(l => l.Category)
                 .Include(l => l.Products).ThenInclude(l => l.Images)
-                .Include(l => l.Chats)
-                .Include(l => l.SentMessages)
-                .Include(l => l.ReceivingMessages)
                 .ToList();
         }
 

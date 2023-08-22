@@ -1,9 +1,11 @@
-﻿@using EntityLayer.Concrete
+﻿@using System.Globalization
+@using EntityLayer.Concrete
 @using DtoLayer.Dtos.ChatDtos
 @model Chat
 
 @{
     Layout = null;
+    CultureInfo trCulture = new CultureInfo("tr-TR");
     var chatData = (List<SortedChatsDto>)ViewBag.Chats;
     var AuthenticatedUser = (User)ViewBag.AuthenticatedUser;
     int RecID = (int)ViewBag.ReceiverID;
@@ -29,7 +31,7 @@
     <meta charset="utf-8">
 
 
-    <title>white chat - Bootdey.com</title>
+    <title>Mesajlar: @uName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/profileButton.css">
@@ -171,11 +173,11 @@
                                                 <div>
                                                     <img src="@message.Sender.ProfileImage" class="rounded-circle mr-1"
                                                         alt="Chris Wood" width="40" height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>
                                                 </div>
                                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                                                     <div class="font-weight-bold mb-1">Ben</div>
-                                                    @message.Content
+                                                    @message.Content 
+                                                    <div class="text-muted small text-nowrap mt-2">@message.Date.ToString("dddd, dd MMMM yyyy HH:mm", trCulture)</div>
                                                 </div>
                                             </div>
                                         }
@@ -185,11 +187,11 @@
                                                 <div>
                                                     <img src="@message.Sender.ProfileImage" class="rounded-circle mr-1"
                                                         alt="Sharon Lessman" width="40" height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">2:36 am</div>
                                                 </div>
                                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                                                     <div class="font-weight-bold mb-1">@message.Sender.Username</div>
                                                     @message.Content
+                                                    <div class="text-muted small text-nowrap mt-2">@message.Date.ToString("dddd, dd MMMM yyyy HH:mm", trCulture)</div>
                                                 </div>
                                             </div>
                                         }
@@ -201,7 +203,7 @@
                         <div class="flex-grow-0 py-3 px-4 border-top">
                             <div class="input-group">
                                 <input id="message-content" type="text" class="form-control"
-                                    placeholder="Type your message">
+                                    placeholder="Mesajı giriniz">
                                 <button id="send-message" class="btn btn-primary" type="submit">Gönder</button>
                             </div>
                         </div>
@@ -239,18 +241,18 @@
             connection.on("ReceiveMessage", (userID, message, stringObj) => {
                 
                 if(parseInt(userID) == @RecID){
-
+                    var jsonMessage = JSON.parse(message);
                     let returnMsg = $("#chat-messagesID").html();
 
                     returnMsg +=`
                     <div class="chat-message-left pb-4">
                         <div>
                             <img src="@pImage" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-                            <div class="text-muted small text-nowrap mt-2">2:36 am</div>
                         </div>
                         <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                             <div class="font-weight-bold mb-1">@uName</div>
-                            ${message}
+                            ${jsonMessage.Message}
+                            <div class="text-muted small text-nowrap mt-2">${jsonMessage.Date}</div>
                         </div>
                     </div>`
 
@@ -311,11 +313,11 @@
                         <div class="chat-message-right pb-4">
                             <div>
                                 <img src="@AuthenticatedUser.ProfileImage" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                <div class="text-muted small text-nowrap mt-2">2:33 am</div>
                             </div>
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                                 <div class="font-weight-bold mb-1">Ben</div>
                                 ${JsonObj.Message}
+                                <div class="text-muted small text-nowrap mt-2">${JsonObj.Date}</div>
                             </div>
                         </div>`;
 
@@ -357,6 +359,8 @@
                         catch (err) {
                             console.error(err);
                         }
+
+                        $("#message-content").val("");
                     }
                 });
             });

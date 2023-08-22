@@ -5,6 +5,7 @@ using DtoLayer.Dtos.ChatDtos;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Collector.Controllers
 {
@@ -13,6 +14,7 @@ namespace Collector.Controllers
         UserManager userManager = new UserManager(new EfUserRepository());
         ChatManager chatManager = new ChatManager(new EfChatRepository());
         MessageManager messageManager = new MessageManager(new EfMessageRepository());
+        
         private User UserData()
         {
             return userManager.GetUserData(User.Identity.Name);
@@ -69,18 +71,22 @@ namespace Collector.Controllers
             return View();
         }
 
-        public async Task<JsonResult> SendMessage(Message message)
+        public JsonResult SendMessage(Message message)
         {
             message.SenderID = UserData().ID;
-            message.Date = DateTime.Now;
+            message.Date = DateTime.UtcNow.AddHours(3);
             int ChatID = chatManager.GetUserChats(UserData().ID).Where(Cht => Cht.Users.Exists(Usr => Usr.ID == message.ReceiverID)).FirstOrDefault().ID;
             message.ChatID = ChatID;
             messageManager.Insert(message);
 
+            var msgDate = DateTime.UtcNow.AddHours(3);
+            CultureInfo trCulture = new CultureInfo("tr-TR");
+            
             var jsonAjax = new AjaxDto
             {
                 SortedChat = chatManager.GetSortedUserChats(UserData().ID),
-                Message = message.Content
+                Message = message.Content,
+                Date = msgDate.ToString("dddd, dd MMMM yyyy HH:mm", trCulture)
             };
 
             string json = JsonConvert.SerializeObject(jsonAjax, Formatting.Indented);
